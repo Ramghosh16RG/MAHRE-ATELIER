@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,6 +42,7 @@
             font-weight: 300;
             line-height: 1.6;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
         h1, h2, h3, h4 {
@@ -58,11 +60,12 @@
         img {
             max-width: 100%;
             display: block;
+            height: auto;
         }
 
         /* --- UTILITIES --- */
         .container {
-            width: 90%;
+            width: 88%;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -70,19 +73,18 @@
         .section-title {
             text-align: center;
             font-size: 2.5rem;
-            margin-bottom: 1rem;
-            position: relative;
+            margin-bottom: 0.5rem;
             text-transform: uppercase;
         }
 
         .section-subtitle {
             text-align: center;
             font-family: var(--font-sans);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 3px;
             color: var(--gold);
-            margin-bottom: 4rem;
+            margin-bottom: 3.5rem;
         }
 
         /* --- NAVIGATION --- */
@@ -95,104 +97,104 @@
             backdrop-filter: blur(10px);
             z-index: 1000;
             border-bottom: 1px solid rgba(178, 149, 90, 0.15);
-            transition: var(--transition);
         }
 
         .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.2rem 0;
+            padding: 1rem 0;
         }
 
         .logo img {
-            height: 45px; /* Adjust based on your logo design aspect ratio */
+            height: 38px;
             width: auto;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2.5rem;
+            gap: 2rem;
         }
 
         .nav-links a {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: 400;
             position: relative;
+            padding: 0.5rem 0;
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
+        /* Hamburger Menu Icon */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
             height: 1px;
-            background-color: var(--gold);
+            background-color: var(--dark-charcoal);
             transition: var(--transition);
-        }
-
-        .nav-links a:hover {
-            color: var(--gold);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
         }
 
         /* --- HERO SECTION --- */
         #hero {
             height: 100vh;
-            background: linear-gradient(rgba(28, 26, 23, 0.4), rgba(28, 26, 23, 0.4)), 
+            background: linear-gradient(rgba(28, 26, 23, 0.45), rgba(28, 26, 23, 0.45)), 
                         url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: var(--bg-white);
-            padding-top: 80px;
+            padding: 0 1rem;
         }
 
         .hero-content h1 {
-            font-size: 4.5rem;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            animation: fadeInDown 1.5s ease;
+            font-size: clamp(2.8rem, 8vw, 4.5rem);
+            line-height: 1.2;
+            margin-bottom: 1rem;
         }
 
         .hero-content p {
             font-family: var(--font-sans);
-            font-size: 1rem;
+            font-size: clamp(0.75rem, 2.5vw, 0.95rem);
             text-transform: uppercase;
-            letter-spacing: 5px;
+            letter-spacing: 4px;
             margin-bottom: 2.5rem;
             color: rgba(255, 255, 255, 0.9);
         }
 
         .btn-luxury {
             display: inline-block;
-            padding: 1rem 2.5rem;
+            padding: 1rem 2.2rem;
             border: 1px solid var(--gold);
             background: transparent;
             color: var(--bg-white);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 3px;
+            cursor: pointer;
             transition: var(--transition);
         }
 
         .btn-luxury:hover {
             background-color: var(--gold);
             color: var(--dark-charcoal);
-            cursor: pointer;
         }
 
-        /* --- ABOUT / PHILOSOPHY --- */
+        /* --- PHILOSOPHY SECTION --- */
         #about {
-            padding: 8rem 0;
+            padding: 6rem 0;
             background-color: var(--bg-white);
         }
 
@@ -204,7 +206,7 @@
         }
 
         .about-text h3 {
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 4vw, 2.5rem);
             color: var(--dark-charcoal);
             margin-bottom: 1.5rem;
             line-height: 1.3;
@@ -213,7 +215,7 @@
         .about-text p {
             color: var(--text-muted);
             margin-bottom: 1.5rem;
-            font-size: 1.05rem;
+            font-size: 1rem;
         }
 
         .about-signature {
@@ -225,20 +227,22 @@
         }
 
         .about-img img {
-            border: 1px solid rgba(178, 149, 90, 0.2);
-            padding: 15px;
+            border: 1px solid rgba(178, 149, 90, 0.15);
+            padding: 10px;
             background-color: var(--bg-cream);
+            width: 100%;
         }
 
         /* --- PORTFOLIO SECTION --- */
         #portfolio {
-            padding: 8rem 0;
+            padding: 6rem 0;
         }
 
         .portfolio-filters {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem 2rem;
             margin-bottom: 3rem;
         }
 
@@ -246,12 +250,12 @@
             background: none;
             border: none;
             font-family: var(--font-sans);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--text-muted);
             cursor: pointer;
-            padding-bottom: 5px;
+            padding-bottom: 4px;
             border-bottom: 1px solid transparent;
             transition: var(--transition);
         }
@@ -263,8 +267,8 @@
 
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
         }
 
         .portfolio-item {
@@ -288,17 +292,17 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to top, rgba(28, 26, 23, 0.9) 10%, rgba(28, 26, 23, 0.2) 100%);
+            background: linear-gradient(to top, rgba(28, 26, 23, 0.85) 15%, rgba(28, 26, 23, 0.1) 100%);
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 2.5rem;
+            padding: 2rem;
             opacity: 0;
             transition: var(--transition);
         }
 
         .portfolio-item:hover img {
-            transform: scale(1.08);
+            transform: scale(1.05);
             opacity: 0.6;
         }
 
@@ -307,62 +311,56 @@
         }
 
         .portfolio-overlay span {
-            font-family: var(--font-sans);
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--gold);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
         }
 
         .portfolio-overlay h4 {
             color: var(--bg-white);
-            font-size: 1.8rem;
+            font-size: 1.5rem;
         }
 
         /* --- SERVICES --- */
         #services {
-            padding: 8rem 0;
+            padding: 6rem 0;
             background-color: var(--dark-charcoal);
             color: var(--bg-cream);
-        }
-
-        #services .section-subtitle {
-            color: var(--gold);
         }
 
         .services-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 3rem;
+            gap: 2rem;
         }
 
         .service-card {
-            border: 1px solid rgba(178, 149, 90, 0.2);
-            padding: 3rem 2rem;
+            border: 1px solid rgba(178, 149, 90, 0.15);
+            padding: 3rem 1.5rem;
             text-align: center;
             transition: var(--transition);
         }
 
         .service-card:hover {
             border-color: var(--gold);
-            transform: translateY(-5px);
         }
 
         .service-card h4 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: var(--gold);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
         }
 
         .service-card p {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: rgba(249, 246, 240, 0.7);
         }
 
         /* --- CONTACT SECTION --- */
         #contact {
-            padding: 8rem 0;
+            padding: 6rem 0;
             background-color: var(--bg-white);
         }
 
@@ -373,34 +371,32 @@
         }
 
         .contact-info h3 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin-bottom: 1.5rem;
         }
 
         .contact-info p {
             color: var(--text-muted);
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
         }
 
         .info-item {
             display: flex;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .info-item div h5 {
-            font-family: var(--font-sans);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--gold);
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
         }
 
         .info-item div p {
             font-family: var(--font-serif);
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: var(--dark-charcoal);
-            margin: 0;
         }
 
         .contact-form fieldset {
@@ -412,17 +408,17 @@
 
         .form-group input, .form-group textarea {
             width: 100%;
-            padding: 1rem;
+            padding: 0.85rem 0.5rem;
             border: none;
-            border-bottom: 1px solid rgba(28, 26, 23, 0.2);
+            border-bottom: 1px solid rgba(28, 26, 23, 0.15);
             background-color: transparent;
             font-family: var(--font-sans);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            outline: none;
             transition: var(--transition);
         }
 
         .form-group input:focus, .form-group textarea:focus {
-            outline: none;
             border-bottom: 1px solid var(--gold);
         }
 
@@ -431,7 +427,6 @@
             background-color: var(--dark-charcoal);
             color: var(--bg-white);
             border: none;
-            cursor: pointer;
         }
 
         .contact-form button:hover {
@@ -442,21 +437,20 @@
         /* --- FOOTER --- */
         footer {
             background-color: var(--dark-charcoal);
-            color: rgba(249, 246, 240, 0.5);
+            color: rgba(249, 246, 240, 0.45);
             padding: 4rem 0 2rem 0;
             border-top: 1px solid rgba(178, 149, 90, 0.1);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-align: center;
         }
 
         .footer-logo {
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .footer-logo img {
-            height: 50px;
+            height: 42px;
             margin: 0 auto;
-            filter: brightness(0) invert(1) sepia(1) hue-rotate(15deg) saturate(2); /* Tweaks image visually to gold tint if pure white */
         }
 
         .footer-socials {
@@ -469,36 +463,81 @@
         .footer-socials a {
             text-transform: uppercase;
             letter-spacing: 2px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--gold);
         }
 
-        .footer-socials a:hover {
-            color: var(--bg-white);
-        }
-
-        /* --- ANIMATIONS & RESPONSIVENESS --- */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
+        /* --- RESPONSIVE MEDIA QUERIES (TABLET & PHONE PROFILES) --- */
         @media (max-width: 968px) {
-            .about-grid, .services-grid, .contact-grid {
+            .about-grid, .contact-grid {
                 grid-template-columns: 1fr;
                 gap: 3rem;
             }
-            .hero-content h1 {
-                font-size: 3rem;
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
             }
+        }
+
+        @media (max-width: 768px) {
+            .section-title { font-size: 2rem; }
+            .section-subtitle { margin-bottom: 2.5rem; }
+            
+            /* Toggle Mobile Navigation View */
+            .hamburger {
+                display: flex;
+            }
+
             .nav-links {
-                display: none; /* In production, replace with a mobile hamburger toggle menu */
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 75%;
+                max-width: 320px;
+                height: 100vh;
+                background-color: var(--bg-cream);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                box-shadow: -5px 0 25px rgba(0,0,0,0.05);
+                transition: var(--transition);
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            /* Hamburger animation morphs when active */
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(7px) rotate(45deg);
+            }
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-7px) rotate(-45deg);
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            /* Make portfolio descriptions visible on mobile instead of hover only */
+            .portfolio-overlay {
+                opacity: 1;
+                background: linear-gradient(to top, rgba(28, 26, 23, 0.9) 25%, rgba(28, 26, 23, 0) 100%);
+                padding: 1.25rem;
+            }
+
+            .contact-form button {
+                width: 100%;
+                text-align: center;
             }
         }
     </style>
@@ -509,16 +548,20 @@
     <header>
         <div class="container nav-container">
             <a href="#" class="logo">
-                <!-- Swapping your provided logo image dynamically -->
                 <img src="logo.png" alt="MAHRÉ ATELIER Logo">
             </a>
+            <button class="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <nav>
-                <ul class="nav-links">
-                    <li><a href="#hero">Home</a></li>
-                    <li><a href="#about">Philosophy</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#hero" onclick="toggleMenu()">Home</a></li>
+                    <li><a href="#about" onclick="toggleMenu()">Philosophy</a></li>
+                    <li><a href="#portfolio" onclick="toggleMenu()">Portfolio</a></li>
+                    <li><a href="#services" onclick="toggleMenu()">Services</a></li>
+                    <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -533,7 +576,7 @@
         </div>
     </section>
 
-    <!-- ABOUT / PHILOSOPHY SECTION -->
+    <!-- PHILOSOPHY SECTION -->
     <section id="about">
         <div class="container about-grid">
             <div class="about-text">
@@ -557,7 +600,7 @@
             <div class="portfolio-filters">
                 <button class="filter-btn active" onclick="filterSelection('all')">All Projects</button>
                 <button class="filter-btn" onclick="filterSelection('residential')">Residential</button>
-                <button class="filter-btn" onclick="filterSelection('restaurant')">Hospitality & Restaurants</button>
+                <button class="filter-btn" onclick="filterSelection('restaurant')">Hospitality</button>
                 <button class="filter-btn" onclick="filterSelection('commercial')">Commercial</button>
             </div>
 
@@ -628,15 +671,15 @@
             <div class="services-grid">
                 <div class="service-card">
                     <h4>Interior Architecture</h4>
-                    <p>Complete structural transformation spatial planning, detailing premium configurations, blueprint rendering, and luxury layout execution.</p>
+                    <p>Complete structural transformation spatial planning, blueprint rendering, and luxury layout execution.</p>
                 </div>
                 <div class="service-card">
                     <h4>Bespoke Furniture</h4>
-                    <p>Custom structural millwork, high-end materials engineering, and tailor-made artisan furniture design curated uniquely for the space profile.</p>
+                    <p>Custom structural millwork, high-end materials engineering, and tailor-made artisan furniture design.</p>
                 </div>
                 <div class="service-card">
                     <h4>Turnkey Curation</h4>
-                    <p>End-to-end luxury consulting from creative blueprint design to art procurement, styling, vendor curation, and full concept delivery.</p>
+                    <p>End-to-end luxury consulting from creative blueprint design to art procurement, styling, and concept delivery.</p>
                 </div>
             </div>
         </div>
@@ -676,7 +719,7 @@
                             <input type="text" placeholder="PROJECT TYPE (E.G., RESIDENTIAL, RESTAURANT)">
                         </div>
                         <div class="form-group">
-                            <textarea rows="5" placeholder="TELL US ABOUT YOUR SPATIAL VISION..." required></textarea>
+                            <textarea rows="4" placeholder="TELL US ABOUT YOUR SPATIAL VISION..." required></textarea>
                         </div>
                         <button type="submit" class="btn-luxury">Send Inquiry</button>
                     </fieldset>
@@ -696,17 +739,29 @@
                 <a href="#">Pinterest</a>
                 <a href="#">LinkedIn</a>
             </div>
-            <p>&copy; 2026 MAHRÉ ATELIER. All Rights Reserved. Crafted for Ultimate Luxury.</p>
+            <p>&copy; 2026 MAHRÉ ATELIER. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <!-- INTERACTIVE FILTERING SCRIPT -->
+    <!-- INTERACTIVE SCRIPTS -->
     <script>
+        // Hamburger Menu Toggle Functionality
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.querySelector('.hamburger');
+            
+            // Only trigger layout shifts if screen width is mobile
+            if (window.innerWidth <= 768) {
+                navLinks.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            }
+        }
+
+        // Filter Portfolio Selection Functionality
         function filterSelection(category) {
             const items = document.querySelectorAll('.portfolio-item');
             const buttons = document.querySelectorAll('.filter-btn');
             
-            // Handle active button state switcher
             buttons.forEach(btn => {
                 btn.classList.remove('active');
                 if(btn.getAttribute('onclick').includes(category)) {
@@ -714,7 +769,6 @@
                 }
             });
 
-            // Handle card visibility transition
             items.forEach(item => {
                 if (category === 'all') {
                     item.style.display = 'block';
@@ -733,3 +787,5 @@
     </script>
 </body>
 </html>
+
+```
