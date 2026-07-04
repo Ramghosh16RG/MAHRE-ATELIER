@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -745,7 +746,7 @@
             </div>
 
             <div class="contact-form">
-                <!-- Connected Formspree Token Endpoint -->
+                <!-- Replace 'YOUR_FORMSPREE_ID_HERE' with your real endpoint token ID -->
                 <form id="atelierContactForm" action="https://formspree.io/f/mzdlyljy" method="POST">
                     <fieldset>
                         <div class="form-group">
@@ -825,11 +826,11 @@
             });
         }
 
-        // Handle Form Submission, Email Delivery routing via Formspree, and Clean input Reset Pipeline
+        // Handle AJAX submission: Sends to your email inbox, prevents page redirect, and resets form inputs cleanly.
         const form = document.getElementById("atelierContactForm");
         
         form.addEventListener("submit", async function(event) {
-            event.preventDefault(); // Halt standard page loading redirects
+            event.preventDefault(); // Stop default navigation redirect
             
             const data = new FormData(form);
             const submitButton = form.querySelector("button[type='submit']");
@@ -861,5 +862,3 @@
     </script>
 </body>
 </html>
-
-```
