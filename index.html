@@ -1,11 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>MAHRÉ ATELIER | Luxury Interior Design Studio</title>
-    <!-- Google Fonts: Premium Serif and Clean Sans-Serif -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
@@ -316,6 +314,7 @@
             background-color: var(--dark-charcoal);
             aspect-ratio: 4/3;
             transition: var(--transition);
+            cursor: pointer;
         }
 
         .portfolio-item img {
@@ -361,6 +360,74 @@
         .portfolio-overlay h4 {
             color: var(--bg-white);
             font-size: 1.6rem;
+        }
+
+        /* --- DYNAMIC PROJECT VIEW SECTION --- */
+        #project-detail-view {
+            padding: calc(var(--header-height) + 3rem) 0 6rem 0;
+            background-color: var(--bg-cream);
+            display: none;
+        }
+
+        .project-header {
+            margin-bottom: 3rem;
+        }
+
+        .btn-back {
+            background: none;
+            border: none;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        .btn-back:hover {
+            color: var(--dark-charcoal);
+        }
+
+        .project-title-area h2 {
+            font-size: clamp(2.2rem, 6vw, 3.5rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-meta-tag {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .project-showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-showcase-grid img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 1px solid rgba(178, 149, 90, 0.1);
+            aspect-ratio: 3/2;
+            transition: var(--transition);
+        }
+
+        .project-showcase-grid img:hover {
+            transform: scale(1.02);
+        }
+
+        .project-showcase-grid img.wide-image {
+            grid-column: span 2;
+            aspect-ratio: 16/9;
         }
 
         /* --- EXPERTISE / SERVICES --- */
@@ -561,8 +628,13 @@
                 transform: translateY(-7px) rotate(-45deg);
             }
 
-            .services-grid, .portfolio-grid {
+            .services-grid, .portfolio-grid, .project-showcase-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .project-showcase-grid img.wide-image {
+                grid-column: span 1;
+                aspect-ratio: 3/2;
             }
 
             .portfolio-overlay {
@@ -589,10 +661,9 @@
 </head>
 <body>
 
-    <!-- NAV BAR -->
     <header>
         <div class="nav-container">
-            <a href="#" class="logo">
+            <a href="#" class="logo" onclick="closeProjectView()">
                 <img src="logo.png" alt="MAHRÉ ATELIER Logo">
             </a>
             <button class="hamburger" aria-label="Toggle Navigation Menu" onclick="toggleMenu()">
@@ -602,173 +673,181 @@
             </button>
             <nav>
                 <ul class="nav-links" id="navLinks">
-                    <li><a href="#hero" onclick="toggleMenu()">Home</a></li>
-                    <li><a href="#about" onclick="toggleMenu()">Philosophy</a></li>
-                    <li><a href="#portfolio" onclick="toggleMenu()">Portfolio</a></li>
-                    <li><a href="#services" onclick="toggleMenu()">Services</a></li>
-                    <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+                    <li><a href="#hero" onclick="closeProjectView(); toggleMenu();">Home</a></li>
+                    <li><a href="#about" onclick="closeProjectView(); toggleMenu();">Philosophy</a></li>
+                    <li><a href="#portfolio" onclick="closeProjectView(); toggleMenu();">Portfolio</a></li>
+                    <li><a href="#services" onclick="closeProjectView(); toggleMenu();">Services</a></li>
+                    <li><a href="#contact" onclick="closeProjectView(); toggleMenu();">Contact</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- HERO SECTION -->
-    <section id="hero">
-        <div class="hero-content">
-            <p>Bespoke Architectural Interiors</p>
-            <h1>MAHRÉ ATELIER</h1>
-            <a href="#portfolio" class="btn-luxury">View Portfolio</a>
-        </div>
-    </section>
-
-    <!-- PHILOSOPHY / ABOUT SECTION -->
-    <section id="about">
-        <div class="container about-grid">
-            <div class="about-text">
-                <h3>Crafting Environments of Timeless Sophistication</h3>
-                <p>At Mahré Atelier, we conceptualize space as a structural canvas for refined living. We specialize in seamless design unifications where spatial purpose perfectly aligns with sophisticated aesthetics.</p>
-                <p>From ultra-luxury private residences to distinctive commercial atmospheres, our execution focuses on impeccable details, bespoke materiality, and curated balance.</p>
-                <div class="about-signature">Mahré Atelier</div>
+    <div id="main-content-wrapper">
+        <section id="hero">
+            <div class="hero-content">
+                <p>Bespoke Architectural Interiors</p>
+                <h1>MAHRÉ ATELIER</h1>
+                <a href="#portfolio" class="btn-luxury">View Portfolio</a>
             </div>
-            <div class="about-img">
-                <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" alt="Luxury Interior Architecture">
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- PORTFOLIO SECTION -->
-    <section id="portfolio">
-        <div class="container">
-            <h2 class="section-title">Selected Works</h2>
-            <div class="section-subtitle">Curated Portfolios</div>
-            
-            <div class="portfolio-filters">
-                <button class="filter-btn active" onclick="filterSelection('all')">All Projects</button>
-                <button class="filter-btn" onclick="filterSelection('residential')">Residential</button>
-                <button class="filter-btn" onclick="filterSelection('restaurant')">Hospitality</button>
-                <button class="filter-btn" onclick="filterSelection('commercial')">Commercial</button>
-            </div>
-
-            <div class="portfolio-grid">
-                <div class="portfolio-item residential">
-                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=600&q=80" alt="The Grand Lounge Project">
-                    <div class="portfolio-overlay">
-                        <span>Residential</span>
-                        <h4>The Grand Lounge</h4>
-                    </div>
+        <section id="about">
+            <div class="container about-grid">
+                <div class="about-text">
+                    <h3>Crafting Environments of Timeless Sophistication</h3>
+                    <p>At Mahré Atelier, we conceptualize space as a structural canvas for refined living. We specialize in seamless design unifications where spatial purpose perfectly aligns with sophisticated aesthetics.</p>
+                    <p>From ultra-luxury private residences to distinctive commercial atmospheres, our execution focuses on impeccable details, bespoke materiality, and curated balance.</p>
+                    <div class="about-signature">Mahré Atelier</div>
                 </div>
-
-                <div class="portfolio-item restaurant">
-                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80" alt="Amber Velvet Bistro">
-                    <div class="portfolio-overlay">
-                        <span>Hospitality</span>
-                        <h4>Amber Velvet Bistro</h4>
-                    </div>
-                </div>
-
-                <div class="portfolio-item residential">
-                    <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=600&q=80" alt="Minimalist Penthouse Bedroom">
-                    <div class="portfolio-overlay">
-                        <span>Residential</span>
-                        <h4>Minimalist Penthouse</h4>
-                    </div>
-                </div>
-
-                <div class="portfolio-item restaurant">
-                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=600&q=80" alt="The Gilded Table Restaurant">
-                    <div class="portfolio-overlay">
-                        <span>Hospitality</span>
-                        <h4>The Gilded Table</h4>
-                    </div>
-                </div>
-
-                <div class="portfolio-item commercial">
-                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80" alt="Monochrome Corporate Headquarters">
-                    <div class="portfolio-overlay">
-                        <span>Commercial</span>
-                        <h4>Monochrome HQ</h4>
-                    </div>
-                </div>
-
-                <div class="portfolio-item residential">
-                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" alt="Modernist Kitchen Concept">
-                    <div class="portfolio-overlay">
-                        <span>Residential</span>
-                        <h4>Modernist Kitchen</h4>
-                    </div>
+                <div class="about-img">
+                    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" alt="Luxury Interior Architecture">
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- SERVICES SECTION -->
-    <section id="services">
-        <div class="container">
-            <h2 class="section-title">Our Expertise</h2>
-            <div class="section-subtitle">A Comprehensive Design Metier</div>
-            
-            <div class="services-grid">
-                <div class="service-card">
-                    <h4>Interior Architecture</h4>
-                    <p>Complete structural transformation spatial planning, blueprint rendering, and luxury layout execution.</p>
-                </div>
-                <div class="service-card">
-                    <h4>Bespoke Furniture</h4>
-                    <p>Custom structural millwork, high-end materials engineering, and tailor-made artisan furniture design.</p>
-                </div>
-                <div class="service-card">
-                    <h4>Turnkey Curation</h4>
-                    <p>End-to-end luxury consulting from creative blueprint design to art procurement, styling, and concept delivery.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT SECTION -->
-    <section id="contact">
-        <div class="container contact-grid">
-            <div class="contact-info">
-                <h3>Commence Your Project</h3>
-                <p>We invite you to experience spatial transformation at the absolute pinnacle of luxury. Reach out to schedule a private design consultation.</p>
+        <section id="portfolio">
+            <div class="container">
+                <h2 class="section-title">Selected Works</h2>
+                <div class="section-subtitle">Curated Portfolios</div>
                 
-                <div class="info-item">
-                    <div>
-                        <h5>The Atelier</h5>
-                        <p>Studio 104, Creative Arts District</p>
-                    </div>
+                <div class="portfolio-filters">
+                    <button class="filter-btn active" onclick="filterSelection('all')">All Projects</button>
+                    <button class="filter-btn" onclick="filterSelection('residential')">Residential</button>
+                    <button class="filter-btn" onclick="filterSelection('restaurant')">Hospitality</button>
+                    <button class="filter-btn" onclick="filterSelection('commercial')">Commercial</button>
                 </div>
-                <div class="info-item">
-                    <div>
-                        <h5>Inquiries</h5>
-                        <p>concierge@mahreatelier.com</p>
-                    </div>
-                </div>
-            </div>
 
-            <div class="contact-form">
-                <!-- Replace 'YOUR_FORMSPREE_ID_HERE' with your real endpoint token ID -->
-                <form id="atelierContactForm" action="https://formspree.io/f/mzdlyljy" method="POST">
-                    <fieldset>
-                        <div class="form-group">
-                            <input type="text" name="name" placeholder="YOUR FULL NAME" required>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item residential" onclick="openProject('grand-lounge')">
+                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=600&q=80" alt="The Grand Lounge Project">
+                        <div class="portfolio-overlay">
+                            <span>Residential</span>
+                            <h4>The Grand Lounge</h4>
                         </div>
-                        <div class="form-group">
-                            <input type="email" name="email" placeholder="EMAIL ADDRESS" required>
+                    </div>
+
+                    <div class="portfolio-item restaurant" onclick="openProject('amber-velvet')">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80" alt="Amber Velvet Bistro">
+                        <div class="portfolio-overlay">
+                            <span>Hospitality</span>
+                            <h4>Amber Velvet Bistro</h4>
                         </div>
-                        <div class="form-group">
-                            <input type="text" name="project_type" placeholder="PROJECT TYPE (E.G., RESIDENTIAL, RESTAURANT)">
+                    </div>
+
+                    <div class="portfolio-item residential" onclick="openProject('minimalist-penthouse')">
+                        <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=600&q=80" alt="Minimalist Penthouse Bedroom">
+                        <div class="portfolio-overlay">
+                            <span>Residential</span>
+                            <h4>Minimalist Penthouse</h4>
                         </div>
-                        <div class="form-group">
-                            <textarea name="message" rows="4" placeholder="TELL US ABOUT YOUR SPATIAL VISION..." required></textarea>
+                    </div>
+
+                    <div class="portfolio-item restaurant" onclick="openProject('gilded-table')">
+                        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=600&q=80" alt="The Gilded Table Restaurant">
+                        <div class="portfolio-overlay">
+                            <span>Hospitality</span>
+                            <h4>The Gilded Table</h4>
                         </div>
-                        <button type="submit" class="btn-luxury">Send Inquiry</button>
-                    </fieldset>
-                </form>
+                    </div>
+
+                    <div class="portfolio-item commercial" onclick="openProject('monochrome-hq')">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80" alt="Monochrome Corporate Headquarters">
+                        <div class="portfolio-overlay">
+                            <span>Commercial</span>
+                            <h4>Monochrome HQ</h4>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item residential" onclick="openProject('modernist-kitchen')">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" alt="Modernist Kitchen Concept">
+                        <div class="portfolio-overlay">
+                            <span>Residential</span>
+                            <h4>Modernist Kitchen</h4>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </section>
+
+        <section id="services">
+            <div class="container">
+                <h2 class="section-title">Our Expertise</h2>
+                <div class="section-subtitle">A Comprehensive Design Metier</div>
+                
+                <div class="services-grid">
+                    <div class="service-card">
+                        <h4>Interior Architecture</h4>
+                        <p>Complete structural transformation spatial planning, blueprint rendering, and luxury layout execution.</p>
+                    </div>
+                    <div class="service-card">
+                        <h4>Bespoke Furniture</h4>
+                        <p>Custom structural millwork, high-end materials engineering, and tailor-made artisan furniture design.</p>
+                    </div>
+                    <div class="service-card">
+                        <h4>Turnkey Curation</h4>
+                        <p>End-to-end luxury consulting from creative blueprint design to art procurement, styling, and concept delivery.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container contact-grid">
+                <div class="contact-info">
+                    <h3>Commence Your Project</h3>
+                    <p>We invite you to experience spatial transformation at the absolute pinnacle of luxury. Reach out to schedule a private design consultation.</p>
+                    
+                    <div class="info-item">
+                        <div>
+                            <h5>The Atelier</h5>
+                            <p>Goregaon</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div>
+                            <h5>Inquiries</h5>
+                            <p>amrinsk1620@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <form id="atelierContactForm" action="https://formspree.io/f/mzdlyljy" method="POST">
+                        <fieldset>
+                            <div class="form-group">
+                                <input type="text" name="name" placeholder="YOUR FULL NAME" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="EMAIL ADDRESS" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="project_type" placeholder="PROJECT TYPE (E.G., RESIDENTIAL, RESTAURANT)">
+                            </div>
+                            <div class="form-group">
+                                <textarea name="message" rows="4" placeholder="TELL US ABOUT YOUR SPATIAL VISION..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn-luxury">Send Inquiry</button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section id="project-detail-view">
+        <div class="container">
+            <div class="project-header">
+                <button class="btn-back" onclick="closeProjectView()">&larr; Back to Gallery</button>
+                <div class="project-title-area">
+                    <h2 id="dynamic-project-title">Project Title</h2>
+                    <span class="project-meta-tag" id="dynamic-project-meta">Category</span>
+                </div>
+            </div>
+            <div class="project-showcase-grid" id="dynamic-gallery-grid"></div>
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
         <div class="container">
             <div class="footer-logo">
@@ -783,8 +862,109 @@
         </div>
     </footer>
 
-    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
     <script>
+        // Data Repository Matrix for Dynamic Project Presentation
+        const projectData = {
+            'grand-lounge': {
+                title: 'The Grand Lounge',
+                meta: 'Residential Portfolio',
+                images: [
+                    'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80'
+                ]
+            },
+            'amber-velvet': {
+                title: 'Amber Velvet Bistro',
+                meta: 'Hospitality Portfolio',
+                images: [
+                    'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80'
+                ]
+            },
+            'minimalist-penthouse': {
+                title: 'Minimalist Penthouse',
+                meta: 'Residential Portfolio',
+                images: [
+                    'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80'
+                ]
+            },
+            'gilded-table': {
+                title: 'The Gilded Table',
+                meta: 'Hospitality Portfolio',
+                images: [
+                    'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80'
+                ]
+            },
+            'monochrome-hq': {
+                title: 'Monochrome HQ',
+                meta: 'Commercial Portfolio',
+                images: [
+                    'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=80'
+                ]
+            },
+            'modernist-kitchen': {
+                title: 'Modernist Kitchen',
+                meta: 'Residential Portfolio',
+                images: [
+                    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=800&q=80'
+                ]
+            }
+        };
+
+        // SPA Navigation Engine: Open Project Detail Panel
+        function openProject(projectId) {
+            const project = projectData[projectId];
+            if (!project) return;
+
+            // Inject title & metadata strings safely
+            document.getElementById('dynamic-project-title').textContent = project.title;
+            document.getElementById('dynamic-project-meta').textContent = project.meta;
+
+            // Generate structural image nodes inside the gallery wrapper
+            const galleryGrid = document.getElementById('dynamic-gallery-grid');
+            galleryGrid.innerHTML = ''; // Wipe past layout cache
+
+            project.images.forEach((imgUrl, index) => {
+                const imgElement = document.createElement('img');
+                imgElement.src = imgUrl;
+                imgElement.alt = `${project.title} Detail Image ${index + 1}`;
+                
+                // Design pattern: alternate full-width wide blocks dynamically
+                if (index === 0 || index % 3 === 0) {
+                    imgElement.classList.add('wide-image');
+                }
+                
+                galleryGrid.appendChild(imgElement);
+            });
+
+            // Transition DOM views smoothly
+            document.getElementById('main-content-wrapper').style.display = 'none';
+            const detailView = document.getElementById('project-detail-view');
+            detailView.style.display = 'block';
+
+            // Snap view window context to top header boundary line cleanly
+            window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+
+        // SPA Navigation Engine: Close Detail and Restore Grid Sections
+        function closeProjectView() {
+            document.getElementById('project-detail-view').style.display = 'none';
+            document.getElementById('main-content-wrapper').style.display = 'block';
+
+            // Smoothly auto-scroll reader targeted focus right back onto the selected gallery area
+            const portfolioSection = document.getElementById('portfolio');
+            if(portfolioSection) {
+                portfolioSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
         // Toggle for Navigation Menu (Mobile View Context)
         function toggleMenu() {
             const navLinks = document.getElementById('navLinks');
@@ -826,11 +1006,11 @@
             });
         }
 
-        // Handle AJAX submission: Sends to your email inbox, prevents page redirect, and resets form inputs cleanly.
+        // Formspree API submission routing handler pipeline
         const form = document.getElementById("atelierContactForm");
         
         form.addEventListener("submit", async function(event) {
-            event.preventDefault(); // Stop default navigation redirect
+            event.preventDefault(); 
             
             const data = new FormData(form);
             const submitButton = form.querySelector("button[type='submit']");
@@ -848,7 +1028,7 @@
 
                 if (response.ok) {
                     alert("Thank you for contacting Mahré Atelier. Your design inquiry has been successfully transmitted to our concierge.");
-                    form.reset(); // Safely clears out form text fields instantly
+                    form.reset(); 
                 } else {
                     alert("An error occurred during transmission. Please verify your form configuration setup.");
                 }
