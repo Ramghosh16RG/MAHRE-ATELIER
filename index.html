@@ -87,7 +87,7 @@
             display: block;
         }
 
-        /* --- SAFE RESPONSIVE CONTAINER WRAPPER --- */
+        /* --- CONTAINER WRAPPER --- */
         .container {
             width: 100%;
             max-width: 1240px;
@@ -237,7 +237,7 @@
             transition: var(--transition-snappy);
         }
 
-        /* --- HERO VIEWPORT SECTION --- */
+        /* --- HERO VIEWPORT SECTION WITH CORE ANIMATION LOGIC --- */
         #hero {
             position: relative;
             height: 100vh;
@@ -270,15 +270,33 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(28, 26, 23, 0.5);
+            background: rgba(28, 26, 23, 0.52);
             z-index: 2;
         }
 
+        /* RESTORED ANIMATION: Floating particle matrix overlay frame */
+        #particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        /* CORRECTION FIXED: Absolute flex layout forces center focus on small mobile screens */
         .hero-content {
             position: relative;
-            z-index: 3;
+            z-index: 4;
             color: var(--bg-white);
+            width: 100%;
             padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
         }
 
         .hero-content p {
@@ -286,12 +304,14 @@
             text-transform: uppercase;
             letter-spacing: 6px;
             margin-bottom: 1rem;
+            text-align: center;
         }
 
         .hero-content h1 {
             font-size: clamp(2.4rem, 7vw, 5rem);
             line-height: 1.2;
             margin-bottom: 2.5rem;
+            text-align: center;
         }
 
         .btn-luxury-solid {
@@ -308,6 +328,7 @@
             cursor: pointer;
             transition: var(--transition-snappy);
             box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            text-align: center;
         }
 
         .btn-luxury-solid:hover {
@@ -439,11 +460,11 @@
         }
 
         @keyframes translateTicker {
-            0% { transform: translate3Boundary(0, 0, 0); }
+            0% { transform: translate3d(0, 0, 0); }
             100% { transform: translate3d(-50%, 0, 0); }
         }
 
-        /* --- FURNITURE EXCLUSIVE SHOWROOM INTERFACE --- */
+        /* --- FURNITURE SHOWROOM INTERFACE --- */
         #furniture-showroom-view {
             display: none;
             padding: calc(var(--header-height) + 2rem) 0 8rem 0;
@@ -663,7 +684,7 @@
         .footer-socials { display: flex; justify-content: center; gap: 2.5rem; margin-bottom: 2.5rem; }
         .footer-socials a { text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem; color: var(--gold); }
 
-        /* --- CRITICAL PHONE VIEWPORT FILTER LOGIC PIPELINES OVERHAUL --- */
+        /* --- BREAKPOINTS RESPONSIVE --- */
         @media (max-width: 1024px) {
             .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 4rem; }
             .portfolio-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
@@ -688,7 +709,7 @@
             .hamburger.active span:nth-child(2) { opacity: 0; }
             .hamburger.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); background-color: var(--bg-cream); }
 
-            /* CORRECTION FIXED: Forces mobile categories to gracefully scroll horizontally on 1 row instead of wrapping */
+            /* Horizontal swiping filters architecture for smaller display viewports */
             .portfolio-filters, .showroom-cat-filters, .showroom-status-filters {
                 justify-content: flex-start !important;
                 flex-wrap: nowrap !important;
@@ -698,7 +719,6 @@
                 -webkit-overflow-scrolling: touch;
             }
 
-            /* Hides native tracking lines across touch display layouts */
             .portfolio-filters::-webkit-scrollbar, 
             .showroom-cat-filters::-webkit-scrollbar, 
             .showroom-status-filters::-webkit-scrollbar {
@@ -725,7 +745,7 @@
         <div class="line-loader"></div>
     </div>
 
-    <!-- MAIN EXCLUSIVE HEADER -->
+    <!-- HEADER COMPONENT -->
     <header id="main-header">
         <div class="container">
             <div class="nav-container">
@@ -750,9 +770,9 @@
         </div>
     </header>
 
-    <!-- FRONT PAGE MAIN WRAPPER -->
+    <!-- FRONT PAGE LAYOUT WRAPPER -->
     <div id="main-content-wrapper">
-        <!-- HERO VIDEO BANNER -->
+        <!-- HERO VIDEO BANNER WITH RESTORED DYNAMIC KINETIC ANIMATIONS -->
         <section id="hero">
             <div class="hero-video-container">
                 <video autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1920&q=80">
@@ -760,6 +780,10 @@
                 </video>
                 <div class="hero-video-overlay"></div>
             </div>
+            
+            <!-- RESTORED ANIMATION CANVAS NODEPLANE -->
+            <canvas id="particle-canvas"></canvas>
+
             <div class="hero-content">
                 <p>Bespoke Architectural Interiors</p>
                 <h1>MAHRÉ ATELIER</h1>
@@ -942,7 +966,7 @@
         </section>
     </div>
 
-    <!-- DYNAMIC CHOSEN FURNITURE SHOWROOM LAYER PANEL (EXCLUSIVE SEPARATE INTERFACE) -->
+    <!-- DYNAMIC CHOSEN FURNITURE SHOWROOM LAYOUT PANEL (EXCLUSIVE SEPARATE INTERFACE) -->
     <section id="furniture-showroom-view">
         <div class="container">
             <div class="showroom-filters-row">
@@ -1067,13 +1091,14 @@
         let internalCurrentCatScope = 'all';
         let internalCurrentStatusScope = 'all';
 
-        // preloader dismantle logic
+        // preloader cinematic handler
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             setTimeout(() => {
                 preloader.style.transform = 'translateY(-100vh)';
                 handleScrollReveal();
                 renderFurnitureShowroomGrid();
+                initLiquidParticles(); // Initialize Home Animated Particles Immediately
             }, 1400);
         });
 
@@ -1084,6 +1109,70 @@
             reveals.forEach(el => {
                 if (el.getBoundingClientRect().top < window.innerHeight - 80) { el.classList.add('active'); }
             });
+        }
+
+        // RESTORED ANIMATION: Home Particle Waves Mathematical Execution Logic
+        function initLiquidParticles() {
+            const canvas = document.getElementById("particle-canvas");
+            if (!canvas) return;
+            const ctx = canvas.getContext("2d");
+            
+            let points = [];
+            const maxPoints = window.innerWidth <= 768 ? 20 : 45; // Scales down computation density on phones
+            
+            function resizeCanvas() {
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            for(let i=0; i<maxPoints; i++) {
+                points.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    radius: Math.random() * 1.5 + 1
+                });
+            }
+            
+            function renderAnimationLoop() {
+                if (document.getElementById('main-content-wrapper').style.display === 'none') {
+                    requestAnimationFrame(renderAnimationLoop);
+                    return; // Pause draw stack if details drawer overlay opens
+                }
+                
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "rgba(178, 149, 90, 0.3)"; 
+                ctx.strokeStyle = "rgba(178, 149, 90, 0.05)";
+                
+                points.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    
+                    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                    
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                
+                for(let i=0; i<points.length; i++) {
+                    for(let j=i+1; j<points.length; j++) {
+                        let dist = Math.hypot(points[i].x - points[j].x, points[i].y - points[j].y);
+                        if (dist < 120) {
+                            ctx.beginPath();
+                            ctx.moveTo(points[i].x, points[i].y);
+                            ctx.lineTo(points[j].x, points[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(renderAnimationLoop);
+            }
+            renderAnimationLoop();
         }
 
         // Open Dedicated Furniture Showroom Tab Layout Panel[cite: 1]
@@ -1275,3 +1364,4 @@
     </script>
 </body>
 </html>
+
