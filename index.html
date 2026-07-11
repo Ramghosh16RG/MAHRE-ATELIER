@@ -7,7 +7,7 @@
     <!-- Google Fonts: Premium Serif and Clean Sans-Serif -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@100;200;300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@100;200;300;400;500&display=swap" rel="stylesheet">
     
     <style>
         /* --- BRAND DESIGN SYSTEM --- */
@@ -21,21 +21,25 @@
             --font-serif: 'Cormorant Garamond', serif;
             --font-sans: 'Montserrat', sans-serif;
             --transition-fluid: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            --transition-snappy: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            --transition-snappy: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
             --header-height: 90px;
         }
 
-        /* --- GLOBAL RESETS & SECURITY CONTROLS --- */
+        /* --- GLOBAL RESETS & VIEWPORT CONTROLS --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
         html {
             scroll-behavior: smooth;
             scroll-padding-top: var(--header-height);
-            background-color: var(--dark-charcoal);
         }
 
         body {
@@ -44,9 +48,8 @@
             font-family: var(--font-sans);
             font-weight: 200;
             line-height: 1.7;
-            overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            transition: background-color 0.8s ease, color 0.8s ease;
+            transition: background-color 0.4s ease, color 0.4s ease;
         }
 
         body.dark-mode {
@@ -58,7 +61,7 @@
             overflow: hidden;
         }
 
-        h1, h2, h3, h4 {
+        h1, h2, h3, h4, h5 {
             font-family: var(--font-serif);
             font-weight: 300;
             letter-spacing: 2px;
@@ -77,21 +80,39 @@
             cursor: pointer;
         }
 
-        img {
-            max-width: 100%;
+        img, video {
+            width: 100%;
             height: auto;
+            max-width: 100%;
             display: block;
         }
 
-        /* --- IMMERSIVE WRAPPER CONTAINER --- */
+        /* --- SAFE RESPONSIVE CONTAINER WRAPPER --- */
         .container {
-            width: 90%;
+            width: 100%;
             max-width: 1240px;
             margin: 0 auto;
-            padding: 0 15px;
+            padding: 0 max(20px, 5vw);
         }
 
-        /* --- KINETIC ENTRANCE INTERSECTORS --- */
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-family: var(--font-sans);
+            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--gold);
+            margin-bottom: clamp(2.5rem, 8vw, 4.5rem);
+        }
+
+        /* --- SCROLL REVEALS --- */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -103,7 +124,7 @@
             transform: translateY(0);
         }
 
-        /* --- PRELOADER CINEMATIC --- */
+        /* --- SCREEN PRELOADER CINEMATIC --- */
         #preloader {
             position: fixed;
             top: 0;
@@ -116,7 +137,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: transform 1s cubic-bezier(0.85, 0, 0.15, 1);
+            transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1);
         }
 
         #preloader h2 {
@@ -133,7 +154,7 @@
             width: 0;
             height: 1px;
             background-color: var(--gold);
-            animation: preloaderLine 1.8s cubic-bezier(0.85, 0, 0.15, 1) forwards;
+            animation: preloaderLine 1.5s cubic-bezier(0.85, 0, 0.15, 1) forwards;
         }
 
         @keyframes preloaderText { to { opacity: 1; transform: translateY(0); } }
@@ -146,24 +167,14 @@
             left: 0;
             width: 100%;
             height: var(--header-height);
-            background-color: transparent;
-            z-index: 1000;
-            transition: var(--transition-snappy);
-            display: flex;
-            align-items: center;
-        }
-
-        header.scrolled {
             background-color: rgba(249, 246, 240, 0.96);
-            height: 80px;
-            border-bottom: 1px solid rgba(178, 149, 90, 0.15);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-        }
-
-        body.dark-mode header.scrolled {
-            background-color: rgba(28, 26, 23, 0.96);
-            border-bottom: 1px solid rgba(178, 149, 90, 0.1);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(178, 149, 90, 0.15);
+            display: flex;
+            align-items: center;
+            transition: var(--transition-snappy);
         }
 
         .nav-container {
@@ -176,23 +187,12 @@
         .logo img {
             height: clamp(32px, 4vw, 38px);
             width: auto;
-            transition: var(--transition-snappy);
-        }
-
-        body.dark-mode .logo img {
-            filter: brightness(100);
-        }
-
-        .nav-actions-wrap {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2.5rem;
+            gap: 2.2rem;
             align-items: center;
         }
 
@@ -202,15 +202,7 @@
             letter-spacing: 3px;
             position: relative;
             padding: 0.5rem 0;
-            color: var(--bg-white);
-        }
-
-        header.scrolled .nav-links a {
             color: var(--dark-charcoal);
-        }
-        
-        body.dark-mode header.scrolled .nav-links a {
-            color: var(--bg-cream);
         }
 
         .nav-links a::after {
@@ -225,48 +217,8 @@
             transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .nav-links a:hover { color: var(--gold) !important; }
+        .nav-links a:hover { color: var(--gold); }
         .nav-links a:hover::after { width: 100%; left: 0; right: auto; }
-
-        /* Cinematic Audio Toggle Controls */
-        .audio-toggle {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--bg-white);
-            font-size: 0.65rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: var(--transition-snappy);
-        }
-
-        header.scrolled .audio-toggle { color: var(--dark-charcoal); }
-        body.dark-mode header.scrolled .audio-toggle { color: var(--bg-cream); }
-
-        .audio-bars {
-            display: flex;
-            align-items: flex-end;
-            gap: 3px;
-            width: 16px;
-            height: 12px;
-        }
-
-        .audio-bars span {
-            display: block;
-            width: 2px;
-            height: 100%;
-            background-color: currentColor;
-            transform-origin: bottom;
-            animation: bounceBars 0.6s ease infinite alternate;
-            animation-play-state: paused;
-        }
-
-        .audio-toggle.playing .audio-bars span { animation-play-state: running; }
-        .audio-bars span:nth-child(2) { animation-delay: 0.15s; }
-        .audio-bars span:nth-child(3) { animation-delay: 0.3s; }
-
-        @keyframes bounceBars { from { transform: scaleY(0.2); } to { transform: scaleY(1); } }
 
         .hamburger {
             display: none;
@@ -281,14 +233,11 @@
             display: block;
             width: 100%;
             height: 1px;
-            background-color: var(--bg-white);
+            background-color: var(--dark-charcoal);
             transition: var(--transition-snappy);
         }
 
-        header.scrolled .hamburger span { background-color: var(--dark-charcoal); }
-        body.dark-mode header.scrolled .hamburger span { background-color: var(--bg-cream); }
-
-        /* --- IMMERSIVE HERO WITH CANVAS PARTICLES --- */
+        /* --- HERO VIEWPORT SECTION --- */
         #hero {
             position: relative;
             height: 100vh;
@@ -307,30 +256,12 @@
             width: 100%;
             height: 100%;
             z-index: 1;
-            overflow: hidden;
         }
 
         .hero-video-container video {
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-        }
-
-        /* Generates fluid geometric particle simulation overlay space */
-        #particle-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
-            z-index: 2;
-            pointer-events: none;
+            object-fit: cover;
         }
 
         .hero-video-overlay {
@@ -339,7 +270,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(28, 26, 23, 0.55);
+            background: rgba(28, 26, 23, 0.5);
             z-index: 2;
         }
 
@@ -351,216 +282,392 @@
         }
 
         .hero-content p {
-            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            font-size: clamp(0.75rem, 2vw, 0.9rem);
             text-transform: uppercase;
             letter-spacing: 6px;
             margin-bottom: 1rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: heroFadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.5s;
         }
 
         .hero-content h1 {
             font-size: clamp(2.4rem, 7vw, 5rem);
             line-height: 1.2;
             margin-bottom: 2.5rem;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: heroFadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.8s;
         }
 
-        .btn-luxury {
+        .btn-luxury-solid {
             display: inline-block;
-            padding: 1.2rem 3rem;
-            border: 1px solid var(--gold);
-            background: transparent;
-            color: var(--bg-white);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            transition: var(--transition-snappy);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: heroFadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 1.1s;
-            cursor: pointer;
-        }
-
-        .btn-luxury:hover {
-            background-color: var(--gold);
-            color: var(--dark-charcoal) !important;
-            box-shadow: 0 10px 30px rgba(178, 149, 90, 0.2);
-        }
-
-        @keyframes heroFadeIn { to { opacity: 1; transform: translateY(0); } }
-
-        /* --- PHILOSOPHY SECTION --- */
-        #about {
-            padding: clamp(5rem, 12vw, 10rem) 0;
-            background-color: var(--bg-white);
-            transition: var(--transition-fluid);
-        }
-
-        body.dark-mode #about { background-color: #161513; }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: clamp(2.5rem, 6vw, 5rem);
-            align-items: center;
-        }
-
-        .about-text h3 {
-            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-            line-height: 1.25;
-            margin-bottom: 2rem;
-        }
-
-        .about-text p {
-            color: var(--text-muted);
-            margin-bottom: 1.8rem;
-            font-size: clamp(0.95rem, 1.5vw, 1.05rem);
-        }
-
-        body.dark-mode .about-text p { color: rgba(249, 246, 240, 0.7); }
-
-        .about-img-frame {
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(178, 149, 90, 0.15);
-            padding: 12px;
-            background-color: var(--bg-cream);
-            transition: var(--transition-fluid);
-        }
-
-        body.dark-mode .about-img-frame { background-color: var(--dark-charcoal); }
-
-        /* --- PORTFOLIO GALLERY GRID --- */
-        #portfolio { padding: clamp(5rem, 12vw, 10rem) 0; }
-        .portfolio-filters { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem 2.5rem; margin-bottom: 4rem; }
-        .filter-btn { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); padding-bottom: 6px; border-bottom: 1px solid transparent; transition: var(--transition-snappy); }
-        body.dark-mode .filter-btn { color: rgba(249, 246, 240, 0.6); }
-        .filter-btn.active, .filter-btn:hover { color: var(--gold) !important; border-bottom: 1px solid var(--gold); }
-
-        .portfolio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1.5rem, 4vw, 3rem); }
-        .portfolio-item { position: relative; overflow: hidden; background-color: var(--dark-charcoal); aspect-ratio: 16/11; transition: var(--transition-fluid); cursor: pointer; }
-        .portfolio-item:nth-child(even) { transform: translateY(30px); }
-
-        .portfolio-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease; opacity: 0.9; }
-        .portfolio-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(28, 26, 23, 0.9) 0%, rgba(28, 26, 23, 0.1) 80%); display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(1.2rem, 3vw, 2.5rem); opacity: 0; transition: var(--transition-fluid); }
-        .portfolio-item:hover img { transform: scale(1.04); opacity: 0.5; }
-        .portfolio-item:hover .portfolio-overlay { opacity: 1; }
-
-        .portfolio-overlay span { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 0.4rem; }
-        .portfolio-overlay h4 { color: var(--bg-white); font-size: clamp(1.3rem, 2.5vw, 1.8rem); }
-
-        /* --- DYNAMIC DETAILED INTERIOR VIEW DRAWER --- */
-        #project-detail-view { display: none; padding: calc(var(--header-height) + 3rem) 0 8rem 0; }
-        .btn-back { color: var(--gold); text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem; display: inline-flex; align-items: center; gap: 0.8rem; margin-bottom: 3rem; transition: var(--transition-snappy); }
-        .btn-back:hover { color: var(--gold-hover); }
-
-        .project-meta-wrap { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 3rem; margin-bottom: 5rem; align-items: flex-end; }
-        .project-meta-wrap h2 { font-size: clamp(2.2rem, 5vw, 3.8rem); line-height: 1.1; }
-        .project-desc-text { font-size: 1rem; color: var(--text-muted); }
-        body.dark-mode .project-desc-text { color: rgba(249, 246, 240, 0.7); }
-
-        .immersive-masonry { display: grid; grid-template-columns: repeat(12, 1fr); gap: clamp(1.2rem, 3vw, 2.5rem); }
-        .masonry-node { opacity: 0; transform: translateY(30px); transition: var(--transition-fluid); }
-        .masonry-node.active { opacity: 1; transform: translateY(0); }
-        .masonry-node img { width: 100%; height: 100%; object-fit: cover; }
-
-        .node-type-tall { grid-column: span 5; aspect-ratio: 4/5; }
-        .node-type-wide { grid-column: span 7; aspect-ratio: 16/10; }
-        .node-type-full { grid-column: span 12; aspect-ratio: 21/9; margin: 1rem 0; }
-
-        /* --- SERVICES EXPERTISE GRID --- */
-        #services { padding: clamp(5rem, 12vw, 10rem) 0; background-color: var(--dark-charcoal); color: var(--bg-cream); }
-        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-        .service-card { border: 1px solid rgba(178, 149, 90, 0.15); padding: clamp(2.5rem, 5vw, 4rem) 1.8rem; transition: var(--transition-fluid); background-color: rgba(255, 255, 255, 0.02); }
-        .service-card:hover { border-color: var(--gold); transform: translateY(-5px); }
-        .service-card .num { font-size: 0.75rem; color: var(--gold); display: block; margin-bottom: 1.5rem; letter-spacing: 2px; }
-        .service-card h4 { font-size: 1.6rem; color: var(--bg-white); margin-bottom: 1.2rem; }
-        .service-card p { font-size: 0.9rem; color: rgba(249, 246, 240, 0.6); }
-
-        /* --- CONTACT COMPONENT MATRIX --- */
-        #contact { padding: clamp(5rem, 12vw, 10rem) 0; background-color: var(--bg-white); transition: var(--transition-fluid); }
-        body.dark-mode #contact { background-color: #161513; }
-        .contact-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(3rem, 6vw, 5rem); }
-        .contact-info h3 { font-size: clamp(2rem, 4.5vw, 3rem); line-height: 1.2; margin-bottom: 1.5rem; }
-        .contact-info p { color: var(--text-muted); margin-bottom: 3.5rem; }
-        body.dark-mode .contact-info p { color: rgba(249, 246, 240, 0.7); }
-
-        .info-item { margin-bottom: 2rem; }
-        .info-item h5 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 0.3rem; }
-        .info-item p { font-family: var(--font-serif); font-size: 1.3rem; color: var(--dark-charcoal); }
-        body.dark-mode .info-item p { color: var(--bg-cream); }
-
-        .contact-form fieldset { border: none; display: flex; flex-direction: column; gap: 2.2rem; }
-        .form-group { position: relative; }
-        .form-group input, .form-group textarea {
-            width: 100%; padding: 0.85rem 0; border: none; border-bottom: 1px solid rgba(28, 26, 23, 0.15);
-            background-color: transparent; font-family: var(--font-sans); font-size: 0.9rem; outline: none; color: inherit;
-            transition: var(--transition-snappy);
-        }
-
-        body.dark-mode .form-group input, body.dark-mode .form-group textarea { border-bottom: 1px solid rgba(249, 246, 240, 0.15); }
-        .form-group label { position: absolute; top: 0.85rem; left: 0; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); pointer-events: none; transition: var(--transition-snappy); }
-        body.dark-mode .form-group label { color: rgba(249, 246, 240, 0.5); }
-
-        .form-group input:focus ~ label, .form-group input:valid ~ label,
-        .form-group textarea:focus ~ label, .form-group textarea:valid ~ label { top: -1.2rem; font-size: 0.65rem; color: var(--gold); }
-        .form-group input:focus, .form-group textarea:focus { border-bottom: 1px solid var(--gold); }
-
-        /* CRITICAL BUTTON DESIGN REFACTOR: FORCES ELEMENT FORM MATRIX */
-        .btn-submit-luxury {
-            display: block;
-            width: auto;
-            align-self: flex-start;
-            padding: 1.1rem 3rem;
+            padding: 1.2rem 3.5rem;
             background-color: var(--dark-charcoal);
             color: var(--bg-white);
             border: 1px solid var(--dark-charcoal);
+            font-family: var(--font-sans);
             font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             font-weight: 400;
             cursor: pointer;
             transition: var(--transition-snappy);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
 
-        .btn-submit-luxury:hover {
+        .btn-luxury-solid:hover {
             background-color: var(--gold);
             border-color: var(--gold);
             color: var(--dark-charcoal);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(178, 149, 90, 0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(178, 149, 90, 0.3);
         }
 
-        body.dark-mode .btn-submit-luxury {
+        /* --- INTERIOR DESIGN GALLERY --- */
+        #portfolio {
+            padding: clamp(4rem, 10vw, 8rem) 0;
+            background-color: var(--bg-white);
+        }
+
+        .portfolio-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.2rem 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .filter-btn {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            padding-bottom: 6px;
+            border-bottom: 1px solid transparent;
+            transition: var(--transition-snappy);
+            white-space: nowrap;
+        }
+
+        .filter-btn.active, .filter-btn:hover { color: var(--gold) !important; border-bottom: 1px solid var(--gold); }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: clamp(1.5rem, 4vw, 3rem);
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            background-color: var(--dark-charcoal);
+            aspect-ratio: 16/11;
+            transition: var(--transition-fluid);
+            cursor: pointer;
+        }
+
+        .portfolio-item:nth-child(even) { transform: translateY(30px); }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+            opacity: 0.9;
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(28, 26, 23, 0.9) 0%, rgba(28, 26, 23, 0.1) 80%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: clamp(1.2rem, 3vw, 2.5rem);
+            opacity: 0;
+            transition: var(--transition-fluid);
+        }
+
+        .portfolio-item:hover img { transform: scale(1.04); opacity: 0.5; }
+        .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+
+        .portfolio-overlay span {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 0.4rem;
+        }
+
+        .portfolio-overlay h4 {
+            color: var(--bg-white);
+            font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+        }
+
+        /* --- ANIMATED COLLABORATION TICKER BANNER --- */
+        #collaboration {
+            padding: 3.5rem 0;
+            background-color: var(--dark-charcoal);
+            overflow: hidden;
+            border-bottom: 1px solid rgba(178, 149, 90, 0.1);
+            position: relative;
+            width: 100%;
+        }
+
+        .ticker-wrap {
+            display: flex;
+            width: max-content;
+            will-change: transform;
+            animation: translateTicker 25s linear infinite;
+        }
+
+        .ticker-content {
+            display: flex;
+            gap: clamp(2rem, 5vw, 4rem);
+            padding-right: clamp(2rem, 5vw, 4rem);
+            color: var(--bg-white);
+            font-family: var(--font-serif);
+            font-size: clamp(1.2rem, 2.5vw, 2rem);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .ticker-content span {
+            color: var(--gold);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            align-self: center;
+            letter-spacing: 2px;
+        }
+
+        @keyframes translateTicker {
+            0% { transform: translate3Boundary(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+
+        /* --- FURNITURE EXCLUSIVE SHOWROOM INTERFACE --- */
+        #furniture-showroom-view {
+            display: none;
+            padding: calc(var(--header-height) + 2rem) 0 8rem 0;
             background-color: var(--bg-cream);
-            color: var(--dark-charcoal);
-            border-color: var(--bg-cream);
+            min-height: 100vh;
+            width: 100%;
         }
 
-        body.dark-mode .btn-submit-luxury:hover {
-            background-color: var(--gold);
+        .showroom-filters-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+            border-bottom: 1px solid rgba(178, 149, 90, 0.15);
+            padding-bottom: 2rem;
+            width: 100%;
+        }
+
+        .showroom-cat-filters, .showroom-status-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.2rem;
+            width: 100%;
+        }
+
+        .showroom-btn {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            padding: 0.4rem 1rem;
+            border: 1px solid transparent;
+            transition: var(--transition-snappy);
+            white-space: nowrap;
+        }
+
+        .showroom-btn.active, .showroom-btn:hover {
+            color: var(--gold);
             border-color: var(--gold);
+        }
+
+        .showroom-status-btn {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background-color: rgba(28, 26, 23, 0.05);
+            padding: 4px 12px;
+            color: var(--dark-charcoal);
+            transition: var(--transition-snappy);
+            white-space: nowrap;
+        }
+
+        .showroom-status-btn.active, .showroom-status-btn:hover {
+            background-color: var(--gold);
             color: var(--dark-charcoal);
         }
+
+        .showroom-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            width: 100%;
+        }
+
+        .showroom-item {
+            position: relative;
+            background-color: var(--bg-white);
+            border: 1px solid rgba(178, 149, 90, 0.12);
+            overflow: hidden;
+            transition: var(--transition-fluid);
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .showroom-item:hover { transform: translateY(-4px); box-shadow: 0 15px 35px rgba(0,0,0,0.05); }
+        .showroom-img-box { position: relative; aspect-ratio: 4/3; overflow: hidden; background-color: var(--dark-charcoal); width: 100%; }
+        .showroom-img-box img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition-fluid); }
+        .showroom-item:hover .showroom-img-box img { transform: scale(1.04); }
+
+        .product-badge {
+            position: absolute; top: 12px; left: 12px; background-color: var(--dark-charcoal); color: var(--gold);
+            font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; padding: 4px 10px; font-weight: 500; z-index: 2;
+        }
+        .product-badge.latest { background-color: var(--gold); color: var(--dark-charcoal); }
+
+        .showroom-details { padding: 1.2rem; text-align: center; }
+        .showroom-details h4 { font-size: 1.3rem; margin-bottom: 0.3rem; color: var(--dark-charcoal); }
+        .showroom-details span { font-family: var(--font-sans); font-size: 0.7rem; text-transform: uppercase; color: var(--gold); letter-spacing: 1px; }
+
+        /* --- DYNAMIC MEDIA GALLERY VIEW PANEL --- */
+        #project-detail-view {
+            display: none;
+            padding: calc(var(--header-height) + 2rem) 0 8rem 0;
+            background-color: var(--dark-charcoal);
+            color: var(--bg-cream);
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        .project-meta-wrap {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+            align-items: flex-end;
+            width: 100%;
+        }
+
+        .project-meta-wrap h2 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; color: var(--bg-white); }
+        .project-desc-text { font-size: 0.95rem; color: rgba(249, 246, 240, 0.7); }
+
+        .immersive-masonry {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            width: 100%;
+        }
+
+        .masonry-node { 
+            opacity: 0; 
+            transform: translateY(25px); 
+            transition: var(--transition-fluid);
+            width: 100%;
+            height: auto;
+        }
+
+        .masonry-node.active { opacity: 1; transform: translateY(0); }
+        .masonry-node img { width: 100%; height: auto; object-fit: cover; display: block; }
+
+        /* --- CO-FOUNDERS ABOUT MATRIX --- */
+        #about {
+            padding: clamp(4rem, 10vw, 8rem) 0;
+            background-color: var(--bg-cream);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(2.5rem, 5vw, 5rem);
+            align-items: center;
+        }
+
+        .about-text h3 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); line-height: 1.25; margin-bottom: 2rem; }
+        .about-text p { color: var(--text-muted); margin-bottom: 1.5rem; font-size: clamp(0.95rem, 1.5vw, 1.05rem); }
+
+        .founders-signature-area {
+            margin-top: 2.5rem; border-top: 1px solid rgba(178, 149, 90, 0.2); padding-top: 1.5rem; display: flex; gap: 2.5rem;
+        }
+        .signature-item h5 { font-size: 1.3rem; color: var(--gold); font-style: italic; }
+        .signature-item span { font-family: var(--font-sans); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); }
+        .about-img-frame { border: 1px solid rgba(178, 149, 90, 0.15); padding: 12px; background-color: var(--bg-white); width: 100%; }
+
+        /* --- SERVICES EXPERTISE --- */
+        #services { padding: clamp(4rem, 10vw, 8rem) 0; background-color: var(--dark-charcoal); color: var(--bg-cream); }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .service-card { border: 1px solid rgba(178, 149, 90, 0.15); padding: clamp(2.5rem, 5vw, 4rem) 1.5rem; text-align: center; background-color: rgba(255, 255, 255, 0.01); }
+        .service-card h4 { font-size: 1.6rem; color: var(--gold); margin-bottom: 1.2rem; }
+        .service-card p { font-size: 0.9rem; color: rgba(249, 246, 240, 0.6); }
+
+        /* --- CONTACT INQUIRY MATRIX --- */
+        #contact { padding: clamp(4rem, 10vw, 8rem) 0; background-color: var(--bg-white); }
+        .contact-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(2.5rem, 5vw, 5rem); }
+        .contact-info h3 { font-size: clamp(2rem, 4.5vw, 3rem); line-height: 1.2; margin-bottom: 1.5rem; }
+        .contact-info p { color: var(--text-muted); margin-bottom: 3.5rem; }
+        .info-item { margin-bottom: 2rem; }
+        .info-item h5 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 0.3rem; }
+        .info-item p { font-family: var(--font-serif); font-size: 1.3rem; color: var(--dark-charcoal); }
+
+        .contact-form fieldset { border: none; display: flex; flex-direction: column; gap: 2.2rem; }
+        .form-group { position: relative; width: 100%; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 0.85rem 0; border: none; border-bottom: 1px solid rgba(28, 26, 23, 0.15);
+            background-color: transparent; font-family: var(--font-sans); font-size: 0.9rem; outline: none; color: inherit;
+        }
+
+        .form-group label { position: absolute; top: 0.85rem; left: 0; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); pointer-events: none; transition: var(--transition-snappy); }
+        .form-group input:focus ~ label, .form-group input:valid ~ label, .form-group textarea:focus ~ label, .form-group textarea:valid ~ label { top: -1.2rem; font-size: 0.65rem; color: var(--gold); }
+        .form-group input:focus, .form-group textarea:focus { border-bottom: 1px solid var(--gold); }
+
+        .btn-submit-luxury {
+            display: block; width: auto; align-self: flex-start; padding: 1.2rem 3.5rem; background-color: var(--dark-charcoal); color: var(--bg-white); border: 1px solid var(--dark-charcoal);
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; font-weight: 400; cursor: pointer; transition: var(--transition-snappy); box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-top: 1rem;
+        }
+        .btn-submit-luxury:hover { background-color: var(--gold); border-color: var(--gold); color: var(--dark-charcoal); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(178, 149, 90, 0.3); }
 
         /* --- FOOTER CONTAINER --- */
-        footer { background-color: var(--dark-charcoal); color: rgba(249, 246, 240, 0.4); padding: 5rem 0 3rem 0; border-top: 1px solid rgba(178, 149, 90, 0.08); font-size: 0.75rem; text-align: center; }
-        .footer-logo { margin-bottom: 2rem; }
-        .footer-logo img { height: 40px; margin: 0 auto; filter: brightness(100); }
+        footer { 
+            background-color: var(--dark-charcoal); 
+            color: rgba(249, 246, 240, 0.4); 
+            padding: 5rem 0 3rem 0; 
+            border-top: 1px solid rgba(178, 149, 90, 0.08); 
+            font-size: 0.75rem; 
+            text-align: center; 
+            width: 100%; 
+        }
+
+        .footer-logo { 
+            margin-bottom: 2rem; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .footer-logo img { 
+            height: clamp(38px, 5vw, 45px); 
+            width: auto; 
+            margin: 0 auto; 
+            display: block;
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
+        }
+
         .footer-socials { display: flex; justify-content: center; gap: 2.5rem; margin-bottom: 2.5rem; }
         .footer-socials a { text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem; color: var(--gold); }
 
-        /* --- PHONE & TABLET MIN RESPONSIVE MEDIA CONSTRAINTS --- */
+        /* --- CRITICAL PHONE VIEWPORT FILTER LOGIC PIPELINES OVERHAUL --- */
         @media (max-width: 1024px) {
             .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 4rem; }
+            .portfolio-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
             .services-grid { grid-template-columns: repeat(2, 1fr); }
-            .project-meta-wrap { grid-template-columns: 1fr; gap: 1.5rem; }
         }
 
         @media (max-width: 768px) {
@@ -581,25 +688,38 @@
             .hamburger.active span:nth-child(2) { opacity: 0; }
             .hamburger.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); background-color: var(--bg-cream); }
 
-            .portfolio-grid { grid-template-columns: 1fr; gap: 2rem; }
-            .portfolio-item:nth-child(even) { transform: translateY(0); }
-            .services-grid { grid-template-columns: 1fr; }
-
-            .portfolio-overlay {
-                opacity: 1;
-                background: linear-gradient(to top, rgba(28, 26, 23, 0.9) 20%, rgba(28, 26, 23, 0) 100%);
+            /* CORRECTION FIXED: Forces mobile categories to gracefully scroll horizontally on 1 row instead of wrapping */
+            .portfolio-filters, .showroom-cat-filters, .showroom-status-filters {
+                justify-content: flex-start !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto !important;
+                width: 100% !important;
+                padding: 10px 0 !important;
+                -webkit-overflow-scrolling: touch;
             }
 
-            .node-type-tall, .node-type-wide { grid-column: span 12; aspect-ratio: 3/2; }
-            .node-type-full { aspect-ratio: 3/2; margin: 0; }
-            .immersive-masonry { gap: 1.5rem; }
-            .btn-submit-luxury { width: 100%; text-align: center; }
+            /* Hides native tracking lines across touch display layouts */
+            .portfolio-filters::-webkit-scrollbar, 
+            .showroom-cat-filters::-webkit-scrollbar, 
+            .showroom-status-filters::-webkit-scrollbar {
+                display: none !important;
+            }
+
+            .portfolio-grid, .showroom-grid, .services-grid, .portfolio-item, .project-meta-wrap { 
+                grid-template-columns: 1fr !important; 
+                gap: 1.5rem;
+            }
+            
+            .portfolio-item:nth-child(even) { transform: translateY(0); }
+            .portfolio-overlay { opacity: 1; background: linear-gradient(to top, rgba(28, 26, 23, 0.9) 20%, rgba(28, 26, 23, 0) 100%); }
+
+            .btn-submit-luxury, .btn-luxury-solid { width: 100%; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-    <!-- SCREEN CINEMATIC PRELOADER -->
+    <!-- SCREEN PRELOADER CINEMATIC -->
     <div id="preloader">
         <h2>MAHRÉ ATELIER</h2>
         <div class="line-loader"></div>
@@ -609,44 +729,30 @@
     <header id="main-header">
         <div class="container">
             <div class="nav-container">
-                <a href="#" class="logo" onclick="closeProjectView()">
+                <a href="#" class="logo" onclick="closeAllDrawers()">
                     <img src="logo2.png" alt="MAHRÉ ATELIER">
                 </a>
-                
-                <div class="nav-actions-wrap">
-                    <!-- Dynamic Atmospheric Soundtrack Trigger Widget Component -->
-                    <div class="audio-toggle" onclick="toggleAudioAtmosphere(this)">
-                        <div class="audio-bars">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <span class="audio-label">Sound Off</span>
-                    </div>
-
-                    <button class="hamburger" aria-label="Menu" onclick="toggleMenu()">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                </div>
-
+                <button class="hamburger" aria-label="Menu" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
                 <nav id="hero-nav">
                     <ul class="nav-links" id="navLinks">
-                        <li><a href="#hero" onclick="closeProjectView(); toggleMenu();">Home</a></li>
-                        <li><a href="#about" onclick="closeProjectView(); toggleMenu();">Philosophy</a></li>
-                        <li><a href="#portfolio" onclick="closeProjectView(); toggleMenu();">Portfolio</a></li>
-                        <li><a href="#services" onclick="closeProjectView(); toggleMenu();">Services</a></li>
-                        <li><a href="#contact" onclick="closeProjectView(); toggleMenu();">Contact</a></li>
+                        <li><a href="#" onclick="closeAllDrawers(); toggleMenu();">Home</a></li>
+                        <li><a href="#portfolio" onclick="closeAllDrawers(); toggleMenu();">Interior Projects</a></li>
+                        <li><a href="#" onclick="openFurnitureShowroom(); toggleMenu();">Furniture Showroom</a></li>
+                        <li><a href="#about" onclick="closeAllDrawers(); toggleMenu();">About Team</a></li>
+                        <li><a href="#contact" onclick="closeAllDrawers(); toggleMenu();">Contact</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
     </header>
 
-    <!-- HOME CONTENT CORES -->
+    <!-- FRONT PAGE MAIN WRAPPER -->
     <div id="main-content-wrapper">
-        <!-- HERO BANNER -->
+        <!-- HERO VIDEO BANNER -->
         <section id="hero">
             <div class="hero-video-container">
                 <video autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1920&q=80">
@@ -654,44 +760,24 @@
                 </video>
                 <div class="hero-video-overlay"></div>
             </div>
-            <!-- Dynamic Liquid Particle Engine Simulation Interface Plane -->
-            <canvas id="particle-canvas"></canvas>
-
             <div class="hero-content">
                 <p>Bespoke Architectural Interiors</p>
                 <h1>MAHRÉ ATELIER</h1>
-                <button class="btn-luxury" onclick="document.querySelector('#portfolio').scrollIntoView({behavior:'smooth'})">Explore Portfolio</button>
+                <button class="btn-luxury-solid" onclick="document.querySelector('#portfolio').scrollIntoView({behavior:'smooth'})">Explore Interior Portfolios</button>
             </div>
         </section>
 
-        <!-- LUXURY PHILOSOPHY -->
-        <section id="about">
-            <div class="container">
-                <div class="about-grid reveal">
-                    <div class="about-text">
-                        <h3>Crafting Environments of Timeless Sophistication</h3>
-                        <p>At Mahré Atelier, we conceptualize space as a structural canvas for refined living. We specialize in seamless design unifications where spatial purpose perfectly aligns with sophisticated aesthetics.</p>
-                        <p>From ultra-luxury private residences to distinctive commercial atmospheres, our execution focuses on impeccable details, bespoke materiality, and curated balance.</p>
-                        <div class="about-signature">Mahré Atelier</div>
-                    </div>
-                    <div class="about-img-frame">
-                        <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" alt="Exquisite Interior Curation">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ASYMMETRIC GRID GALLERY -->
+        <!-- LUXURY INTERIOR ARCHITECTURE SELECTION (FRONT PAGE PRIORITY) -->
         <section id="portfolio">
             <div class="container">
-                <h2 class="section-title reveal">Selected Works</h2>
-                <div class="section-subtitle reveal">Curated Portfolios</div>
+                <h2 class="section-title reveal">Interior Portfolios</h2>
+                <div class="section-subtitle reveal">Timeless Curations</div>
                 
                 <div class="portfolio-filters reveal">
-                    <button class="filter-btn active" onclick="filterSelection('all')">All Projects</button>
-                    <button class="filter-btn" onclick="filterSelection('residential')">Residential</button>
-                    <button class="filter-btn" onclick="filterSelection('restaurant')">Hospitality</button>
-                    <button class="filter-btn" onclick="filterSelection('commercial')">Commercial</button>
+                    <button class="filter-btn active" onclick="filterPortfolio('all')">All Environments</button>
+                    <button class="filter-btn" onclick="filterPortfolio('residential')">Residential</button>
+                    <button class="filter-btn" onclick="filterPortfolio('restaurant')">Hospitality / Bistro</button>
+                    <button class="filter-btn" onclick="filterPortfolio('commercial')">Commercial Space</button>
                 </div>
 
                 <div class="portfolio-grid">
@@ -712,7 +798,7 @@
                     </div>
 
                     <div class="portfolio-item residential reveal" onclick="openProject('minimalist-penthouse')">
-                        <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=800&q=80" alt="Minimalist Penthouse">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Minimalist Penthouse">
                         <div class="portfolio-overlay">
                             <span>Residential</span>
                             <h4>Minimalist Penthouse</h4>
@@ -736,7 +822,7 @@
                     </div>
 
                     <div class="portfolio-item residential reveal" onclick="openProject('modernist-kitchen')">
-                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Modernist Kitchen">
+                        <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=800&q=80" alt="Modernist Kitchen">
                         <div class="portfolio-overlay">
                             <span>Residential</span>
                             <h4>Modernist Kitchen</h4>
@@ -746,7 +832,46 @@
             </div>
         </section>
 
-        <!-- SERVICES SECTOR -->
+        <!-- HIGH-DYNAMIC ANIMATED COLLABORATION TICKER BANNER -->
+        <section id="collaboration" class="reveal">
+            <div class="ticker-wrap">
+                <div class="ticker-content">
+                    Mahré Atelier <span>✦</span> National Furniture Collaboration <span>✦</span> Architectural Material Curation Matrix
+                </div>
+                <div class="ticker-content">
+                    Mahré Atelier <span>✦</span> National Furniture Collaboration <span>✦</span> Architectural Material Curation Matrix
+                </div>
+            </div>
+        </section>
+
+        <!-- STUDIO CO-FOUNDERS ABOUT BIOGRAPHY SECTION -->
+        <section id="about">
+            <div class="container">
+                <div class="about-grid reveal">
+                    <div class="about-text">
+                        <h3>Crafting Environments of Timeless Sophistication</h3>
+                        <p>Mahré Atelier represents an uncompromised spatial design matrix engineered to transform luxury conceptual living frameworks into physical architectural realities. Co-founded alongside my trusted design partner Amrin, our architectural focus unifies geometric purpose with rich, bespoke texturing parameters.</p>
+                        <p>Operating from our primary creation hub, we manage turnkey projects ranging from ultra-luxury personal penthouses to high-end hospitality bistros, executing every detail smoothly and precisely.</p>
+                        
+                        <div class="founders-signature-area">
+                            <div class="signature-item">
+                                <h5>Mahré Atelier</h5>
+                                <span>Principal Consultant</span>
+                            </div>
+                            <div class="signature-item">
+                                <h5>Amrin</h5>
+                                <span>Design Metier Partner</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-img-frame">
+                        <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" alt="Mahré Atelier Studio Hub">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CORE EXPERTISE SERVICES -->
         <section id="services">
             <div class="container">
                 <h2 class="section-title reveal">Our Expertise</h2>
@@ -772,7 +897,7 @@
             </div>
         </section>
 
-        <!-- CONTACT INTERACTIVE MATRIX -->
+        <!-- SECURE INQUIRY FORM MATRIX -->
         <section id="contact">
             <div class="container">
                 <div class="contact-grid">
@@ -780,12 +905,12 @@
                         <h3>Commence Your Project</h3>
                         <p>We invite you to experience spatial transformation at the absolute pinnacle of luxury. Reach out to schedule a private design consultation.</p>
                         <div class="info-item">
-                            <h5>The Atelier</h5>
-                            <p>Studio 104, Creative Arts District</p>
+                            <h5>The Atelier Location</h5>
+                            <p>Goregaon, Mumbai</p>
                         </div>
                         <div class="info-item">
                             <h5>Inquiries</h5>
-                            <p>concierge@mahreatelier.com</p>
+                            <p>amrinsk1620@gmail.com</p>
                         </div>
                     </div>
 
@@ -817,11 +942,41 @@
         </section>
     </div>
 
-    <!-- DYNAMIC EDITORIAL PROJECT INTERIOR CANVAS -->
+    <!-- DYNAMIC CHOSEN FURNITURE SHOWROOM LAYER PANEL (EXCLUSIVE SEPARATE INTERFACE) -->
+    <section id="furniture-showroom-view">
+        <div class="container">
+            <div class="showroom-filters-row">
+                <h2 class="section-title" style="margin:0;">The Furniture Showroom</h2>
+                
+                <!-- 6 Main Categories -->
+                <div class="showroom-cat-filters">
+                    <button class="showroom-btn active" onclick="filterShowroomCategory('all')">All Products</button>
+                    <button class="showroom-btn" onclick="filterShowroomCategory('sofa')">Sofa</button>
+                    <button class="showroom-btn" onclick="filterShowroomCategory('tea-table')">Tea Table</button>
+                    <button class="showroom-btn" onclick="filterShowroomCategory('dining-table')">Dining Table</button>
+                    <button class="showroom-btn" onclick="filterShowroomCategory('chairs')">Chairs</button>
+                    <button class="showroom-btn" onclick="filterShowroomCategory('dressing-table')">Dressing Table</button>
+                    <button class="showroom-btn" onclick="filterShowroomCategory('wardrobes')">Wardrobes</button>
+                </div>
+
+                <!-- Status Filters -->
+                <div class="showroom-status-filters">
+                    <button class="showroom-btn showroom-status-btn active" onclick="filterShowroomStatus('all')">All Designs</button>
+                    <button class="showroom-btn showroom-status-btn" onclick="filterShowroomStatus('selling')">Most Selling</button>
+                    <button class="showroom-btn showroom-status-btn" onclick="filterShowroomStatus('latest')">Latest Design</button>
+                </div>
+            </div>
+
+            <!-- Deep Product Line Catalog Grid Rows -->
+            <div class="showroom-grid" id="showroom-grid-target"></div>
+        </div>
+    </section>
+
+    <!-- DEEP-DIVE DYNAMIC GALLERY OVERLAY (SPA SYSTEM MODULE) -->
     <section id="project-detail-view">
         <div class="container">
-            <button class="btn-back" onclick="closeProjectView()">
-                <span>&larr;</span> Return to Main Gallery
+            <button class="btn-back" id="back-button-trigger" onclick="returnToPreviousView()">
+                <span>&larr;</span> Return To Gallery
             </button>
             <div class="project-meta-wrap">
                 <div>
@@ -829,7 +984,7 @@
                     <p class="project-meta-tag" id="dynamic-project-meta">Category</p>
                 </div>
                 <div class="project-desc-text">
-                    Every project layout produced inside the Mahré Atelier pipeline represents an uncompromised structural journey where modern architecture effortlessly unifies with functional elegance.
+                    Every design asset deployed within this portfolio segment showcases rigorous material integration, artisan engineering, and optimal balance tailored strictly to the space canvas.
                 </div>
             </div>
             <div class="immersive-masonry" id="dynamic-gallery-grid"></div>
@@ -839,7 +994,7 @@
     <!-- FOOTER TERMINAL -->
     <footer>
         <div class="container">
-            <div class="footer-logo">
+            <div class="footer-logo" onclick="closeAllDrawers()">
                 <img src="logo1.png" alt="MAHRÉ ATELIER">
             </div>
             <div class="footer-socials">
@@ -851,197 +1006,162 @@
         </div>
     </footer>
 
-    <!-- LOGIC SYSTEM PIPELINE -->
+    <!-- LOGIC PIPELINE SYSTEM -->
     <script>
+        // Interior Project Photo Media Registry Array Map
         const projectRepository = {
             'grand-lounge': {
-                title: 'The Grand Lounge',
-                meta: 'Residential Architecture Atelier',
+                title: 'The Grand Lounge', meta: 'Residential Portfolio Suite',
                 images: [
-                    { url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80', type: 'node-type-full' },
-                    { url: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80', type: 'node-type-tall' },
-                    { url: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=900&q=80', type: 'node-type-wide' },
-                    { url: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80', type: 'node-type-full' }
+                    { url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80' },
+                    { url: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80' },
+                    { url: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=900&q=80' }
                 ]
             },
             'amber-velvet': {
-                title: 'Amber Velvet Bistro',
-                meta: 'Hospitality Architecture Space',
+                title: 'Amber Velvet Bistro', meta: 'Hospitality Architecture Space',
                 images: [
-                    { url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80', type: 'node-type-wide' },
-                    { url: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=800&q=80', type: 'node-type-tall' },
-                    { url: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80', type: 'node-type-full' }
+                    { url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80' },
+                    { url: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=800&q=80' }
                 ]
             },
             'minimalist-penthouse': {
-                title: 'Minimalist Penthouse',
-                meta: 'Bespoke Luxury Living',
+                title: 'Minimalist Penthouse', meta: 'Bespoke Private Residence',
                 images: [
-                    { url: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80', type: 'node-type-full' },
-                    { url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80', type: 'node-type-wide' }
+                    { url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80' }
                 ]
             },
             'gilded-table': {
-                title: 'The Gilded Table',
-                meta: 'Premium Restaurant Aesthetics',
+                title: 'The Gilded Table', meta: 'Premium Dining Architecture',
                 images: [
-                    { url: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1200&q=80', type: 'node-type-full' },
-                    { url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80', type: 'node-type-tall' }
+                    { url: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1200&q=80' }
                 ]
             },
             'monochrome-hq': {
-                title: 'Monochrome HQ',
-                meta: 'High-Concept Commercial Space',
+                title: 'Monochrome HQ', meta: 'Commercial Corporate Studio',
                 images: [
-                    { url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80', type: 'node-type-wide' },
-                    { url: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80', type: 'node-type-full' }
+                    { url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80' }
                 ]
             },
             'modernist-kitchen': {
-                title: 'Modernist Kitchen',
-                meta: 'Premium Structural Curation',
+                title: 'Modernist Kitchen', meta: 'Premium Culinary Curation',
                 images: [
-                    { url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80', type: 'node-type-full' },
-                    { url: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80', type: 'node-type-tall' }
+                    { url: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=900&q=80' }
                 ]
             }
         };
 
-        // Preloader Cinematic Setup
+        // Deep Showroom Dedicated Product Matrix Array (6 Core Types)[cite: 1]
+        const furnitureProducts = [
+            { id: 'f-1', name: 'The Aurelia Velvet Sofa', category: 'sofa', status: 'latest', img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80', label: 'Latest Design Sofa' },
+            { id: 'f-2', name: 'Imperial Chester Couch', category: 'sofa', status: 'selling', img: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=600&q=80', label: 'Most Selling Sofa' },
+            { id: 'f-3', name: 'Marble Circular Tea Table', category: 'tea-table', status: 'selling', img: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=600&q=80', label: 'Most Selling Table' },
+            { id: 'f-4', name: 'Obsidian Geometric Tea Table', category: 'tea-table', status: 'latest', img: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=600&q=80', label: 'Latest Design Table' },
+            { id: 'f-5', name: 'The Royal Banquet Dining', category: 'dining-table', status: 'latest', img: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=600&q=80', label: 'Latest Dining Suite' },
+            { id: 'f-6', name: 'Bespoke Lounge Accent Chair', category: 'chairs', status: 'selling', img: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=600&q=80', label: 'Most Selling Chair' },
+            { id: 'f-7', name: 'The Gilded Vanity Dressing Suite', category: 'dressing-table', status: 'latest', img: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=600&q=80', label: 'Latest Dressing Table' },
+            { id: 'f-8', name: 'Monochrome Walnut Wardrobe', category: 'wardrobes', status: 'selling', img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80', label: 'Most Selling Closet' }
+        ];
+
+        let navigationViewTrackingHistory = 'home'; 
+        let internalCurrentCatScope = 'all';
+        let internalCurrentStatusScope = 'all';
+
+        // preloader dismantle logic
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             setTimeout(() => {
                 preloader.style.transform = 'translateY(-100vh)';
                 handleScrollReveal();
-                initLiquidParticles(); // Spin fluid math physics overlay engine instantly
+                renderFurnitureShowroomGrid();
             }, 1400);
         });
 
-        // HTML5 Audio Context Audio Stream Config
-        let audioCtx = null;
-        let oscillator = null;
-        let gainNode = null;
+        window.addEventListener('scroll', handleScrollReveal);
 
-        function toggleAudioAtmosphere(element) {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                
-                // Synthesizing a real luxury ambient background hum safely without source file links
-                oscillator = audioCtx.createOscillator();
-                gainNode = audioCtx.createGain();
-                
-                oscillator.type = 'sine';
-                oscillator.frequency.setValueAtTime(98.00, audioCtx.currentTime); // Deep, clean 98Hz acoustic tone G2
-                gainNode.gain.setValueAtTime(0.04, audioCtx.currentTime); // Soft background whisper balance volume
-                
-                oscillator.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-                oscillator.start();
-                
-                element.classList.add('playing');
-                element.querySelector('.audio-label').textContent = "Sound On";
-            } else {
-                if (audioCtx.state === 'suspended') {
-                    audioCtx.resume();
-                    element.classList.add('playing');
-                    element.querySelector('.audio-label').textContent = "Sound On";
-                } else if (audioCtx.state === 'running') {
-                    audioCtx.suspend();
-                    element.classList.remove('playing');
-                    element.querySelector('.audio-label').textContent = "Sound Off";
-                }
-            }
-        }
-
-        // NEXT-LEVEL: Liquid Fluid Canvas Particle Simulation Math Script Core Engine
-        function initLiquidParticles() {
-            const canvas = document.getElementById("particle-canvas");
-            if (!canvas) return;
-            const ctx = canvas.getContext("2d");
-            
-            let points = [];
-            const maxPoints = 40;
-            
-            function resizeCanvas() {
-                canvas.width = canvas.offsetWidth;
-                canvas.height = canvas.offsetHeight;
-            }
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-            
-            for(let i=0; i<maxPoints; i++) {
-                points.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 0.6,
-                    vy: (Math.random() - 0.5) * 0.6,
-                    radius: Math.random() * 2 + 1
-                });
-            }
-            
-            function renderAnimationLoop() {
-                if (document.getElementById('main-content-wrapper').style.display === 'none') {
-                    requestAnimationFrame(renderAnimationLoop);
-                    return; // Pause processing compute overhead if user is viewing portfolio details
-                }
-                
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = "rgba(178, 149, 90, 0.25)"; // Premium Gold dust accent hex
-                ctx.strokeStyle = "rgba(178, 149, 90, 0.04)";
-                
-                points.forEach(p => {
-                    p.x += p.vx;
-                    p.y += p.vy;
-                    
-                    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-                    
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                    ctx.fill();
-                });
-                
-                // Draw luxury micro lines connecting vector points
-                for(let i=0; i<points.length; i++) {
-                    for(let j=i+1; j<points.length; j++) {
-                        let dist = Math.hypot(points[i].x - points[j].x, points[i].y - points[j].y);
-                        if (dist < 130) {
-                            ctx.beginPath();
-                            ctx.moveTo(points[i].x, points[i].y);
-                            ctx.lineTo(points[j].x, points[j].y);
-                            ctx.stroke();
-                        }
-                    }
-                }
-                requestAnimationFrame(renderAnimationLoop);
-            }
-            renderAnimationLoop();
-        }
-
-        // Dynamic Header Transforms on Scrolling
-        const header = document.getElementById('main-header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 60) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-            handleScrollReveal();
-        });
-
-        // Scroll Reveal Mechanics
         function handleScrollReveal() {
             const reveals = document.querySelectorAll('.reveal, .masonry-node');
             reveals.forEach(el => {
-                let windowHeight = window.innerHeight;
-                let elementTop = el.getBoundingClientRect().top;
-                if (elementTop < windowHeight - 80) { el.classList.add('active'); }
+                if (el.getBoundingClientRect().top < window.innerHeight - 80) { el.classList.add('active'); }
             });
         }
 
-        // Dynamic SPA Module Handler
+        // Open Dedicated Furniture Showroom Tab Layout Panel[cite: 1]
+        function openFurnitureShowroom() {
+            navigationViewTrackingHistory = 'showroom';
+            document.getElementById('main-content-wrapper').style.display = 'none';
+            document.getElementById('project-detail-view').style.display = 'none';
+            document.getElementById('furniture-showroom-view').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+
+        // Populate Showroom Grid Elements[cite: 1]
+        function renderFurnitureShowroomGrid() {
+            const container = document.getElementById('showroom-grid-target');
+            container.innerHTML = '';
+
+            const filtered = furnitureProducts.filter(item => {
+                const matchCat = (internalCurrentCatScope === 'all' || item.category === internalCurrentCatScope);
+                const matchStatus = (internalCurrentStatusScope === 'all' || item.status === internalCurrentStatusScope);
+                return matchCat && matchStatus;
+            });
+
+            filtered.forEach(product => {
+                const card = document.createElement('div');
+                card.className = `showroom-item`;
+                card.onclick = () => openProject(product.id);
+                
+                card.innerHTML = `
+                    <span class="product-badge ${product.status === 'latest' ? 'latest' : ''}">${product.status === 'latest' ? 'Latest Design' : 'Most Selling'}</span>
+                    <div class="showroom-img-box">
+                        <img src="${product.img}" alt="${product.name}">
+                    </div>
+                    <div class="showroom-details">
+                        <h4>${product.name}</h4>
+                        <span>${product.label}</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+            setTimeout(handleScrollReveal, 50);
+        }
+
+        function filterShowroomCategory(cat) {
+            internalCurrentCatScope = cat;
+            document.querySelectorAll('.showroom-cat-filters .showroom-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.getAttribute('onclick').includes(cat)) btn.classList.add('active');
+            });
+            renderFurnitureShowroomGrid();
+        }
+
+        function filterShowroomStatus(status) {
+            internalCurrentStatusScope = status;
+            document.querySelectorAll('.showroom-status-filters .showroom-status-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.getAttribute('onclick').includes(status)) btn.classList.add('active');
+            });
+            renderFurnitureShowroomGrid();
+        }
+
+        // Open Individual Project Media Layout Canvas[cite: 1]
         function openProject(key) {
-            const project = projectRepository[key];
+            let project = projectRepository[key];
+            
+            if(!project) {
+                const foundItem = furnitureProducts.find(p => p.id === key);
+                if (foundItem) {
+                    project = {
+                        title: foundItem.name,
+                        meta: `${foundItem.label} Specification Matrix`,
+                        images: [
+                            { url: foundItem.img },
+                            { url: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80' },
+                            { url: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=900&q=80' }
+                        ]
+                    };
+                }
+            }
             if (!project) return;
 
             document.body.classList.add('dark-mode');
@@ -1053,7 +1173,7 @@
 
             project.images.forEach((imgObj) => {
                 const node = document.createElement('div');
-                node.className = `masonry-node ${imgObj.type}`;
+                node.className = `masonry-node`; 
                 const img = document.createElement('img');
                 img.src = imgObj.url;
                 node.appendChild(img);
@@ -1061,22 +1181,36 @@
             });
 
             document.getElementById('main-content-wrapper').style.display = 'none';
+            document.getElementById('furniture-showroom-view').style.display = 'none';
             document.getElementById('project-detail-view').style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'instant' });
-            setTimeout(() => { handleScrollReveal(); }, 80);
+            setTimeout(handleScrollReveal, 80);
         }
 
-        function closeProjectView() {
+        function returnToPreviousView() {
             document.body.classList.remove('dark-mode');
             document.getElementById('project-detail-view').style.display = 'none';
-            document.getElementById('main-content-wrapper').style.display = 'block';
-            setTimeout(() => {
-                const target = document.getElementById('portfolio');
-                if (target) target.scrollIntoView({ behavior: 'smooth' });
-            }, 50);
+            
+            if (navigationViewTrackingHistory === 'showroom') {
+                document.getElementById('furniture-showroom-view').style.display = 'block';
+            } else {
+                document.getElementById('main-content-wrapper').style.display = 'block';
+                setTimeout(() => {
+                    const target = document.getElementById('portfolio');
+                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                }, 50);
+            }
         }
 
-        // Responsive Hamburger Nav Logic Toggle
+        function closeAllDrawers() {
+            navigationViewTrackingHistory = 'home';
+            document.body.classList.remove('dark-mode');
+            document.getElementById('project-detail-view').style.display = 'none';
+            document.getElementById('furniture-showroom-view').style.display = 'none';
+            document.getElementById('main-content-wrapper').style.display = 'block';
+        }
+
+        // Toggle Responsive Hamburger Navbar[cite: 1]
         function toggleMenu() {
             const links = document.getElementById('navLinks');
             const burger = document.querySelector('.hamburger');
@@ -1087,10 +1221,10 @@
             }
         }
 
-        // Gallery Filters Logic pipeline
-        function filterSelection(category) {
+        // Front-Page Portfolio Filters
+        function filterPortfolio(category) {
             const items = document.querySelectorAll('.portfolio-item');
-            const buttons = document.querySelectorAll('.filter-btn');
+            const buttons = document.querySelectorAll('.portfolio-filters .filter-btn');
             
             buttons.forEach(btn => {
                 btn.classList.remove('active');
@@ -1108,12 +1242,14 @@
             });
         }
 
-        // Formspree Submission Core Interface Logic
+        function filterSelection(cat) { filterPortfolio(cat); }
+
+        // Secure AJAX Formspree submission reset logic[cite: 1]
         const form = document.getElementById("atelierContactForm");
         form.addEventListener("submit", async function(event) {
             event.preventDefault();
             const data = new FormData(form);
-            const button = form.querySelector("button[type='submit']");
+            const button = form.querySelector(".btn-submit-luxury");
             button.textContent = "TRANSMITTING...";
             button.disabled = true;
 
@@ -1124,13 +1260,13 @@
                     headers: { 'Accept': 'application/json' }
                 });
                 if (response.ok) {
-                    alert("Thank you. Your layout vision has been transmitted directly to Mahré Atelier.");
+                    alert("Thank you. Your inquiry specification has been successfully transmitted directly to Mahré Atelier.");
                     form.reset();
                 } else {
                     alert("A transmission error occurred. Please verify your fields.");
                 }
             } catch (error) {
-                alert("Network link timeout. Please try again soon.");
+                alert("Network boundary link timeout. Please try again soon.");
             } finally {
                 button.textContent = "SEND INQUIRY";
                 button.disabled = false;
